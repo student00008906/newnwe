@@ -1,0 +1,13 @@
+extends layout.pug 
+
+block number1 
+    form(action='/add' method='POST') 
+        input.input(type='text', placeholder='Add your todo description here...' name='todo') 
+        button.btn Add
+    div.todos 
+        if todos.length 
+        each todo in todos 
+            p.todo #{todo.description}
+        else 
+            p.todo No any todo available
+        
