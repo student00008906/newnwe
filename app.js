@@ -11,52 +11,101 @@ app.set('view engine', 'pug')
 app.use('/static', express.static('public'))
 app.use(express.urlencoded({ extended:false}))
 
-app.get('/',(req,res) =>{
-    fs.readFile('./data/todos.json', (err, data) =>{
-        if (err) throw (err)
+// http://localhost:8000
+app.get('/', (req, res) => {
+  fs.readFile('./data/todos.json', (err, data) => {
+    if (err) throw err
+
+    const todos = JSON.parse(data)
+
+    res.render('home', { todos: todos })
+  })
+})
+
+app.post('/add', (req, res) => {
+  const formData = req.body
+
+  if (formData.todo.trim() == '') {
+    fs.readFile('./data/todos.json', (err, data) => {
+      if (err) throw err
+
+      const todos = JSON.parse(data)
+
+      res.render('home', { error: true, todos: todos })
     })
+  } else {
+    fs.readFile('./data/todos.json', (err, data) => {
+      if (err) throw err
 
-    res.render('home')
-})
+      const todos = JSON.parse(data)
 
-app.post('/add', (req,res) =>{
-    const formData = req.body
+      const todo = {
+        id: id(),
+        description: formData.todo,
+        done: false
+      }
 
-    if (formData.todo.trim()==''){
-        res.render('home',{error: true})
-    } else {
-        fs.readFile(
-            './data/todos.json',(err,data) =>{
-            if (err) thow (err)
+      todos.push(todo)
 
-            const todos = JSON.parse(data)
+      fs.writeFile('./data/todos.json', JSON.stringify(todos), (err) => {
+        if (err) throw err
 
-            const todo = {
-                id: id(),
-                desctiption: formData.todo,
-                done:false
+        fs.readFile('./data/todos.json', (err, data) => {
+          if (err) throw err
 
-            }
+          const todos = JSON.parse(data)
 
-            todos.push(todo)
-
-            fs.writeFile(
-                './data/todos.json', JSON.stringify(todos, (err) =>{
-                if (err) throw (err)
-
-                fs.readFile('./data/todos.json', (err, data) =>{
-                    if (err) throw (err)
-
-                    const todos = JSON.parse(data)
-
-                    res.render('home',{ success: true})
-                })
-            }))
+          res.render('home', { success: true, todos: todos })
         })
-    }
+      })
+    })
+  }
 })
 
-//http:localhost:8000
+app.get('/:id/delete', (req, res) => {
+  const id = req.params.id
+
+  fs.readFile('./data/todos.json', (err, data) => {
+    if (err) throw err
+
+    const todos = JSON.parse(data)
+
+    const filteredTodos = todos.filter(todo => todo.id != id)
+
+    fs.writeFile('./data/todos.json', JSON.stringify(filteredTodos), (err) => {
+      if (err) throw err
+
+      res.render('home', { todos: filteredTodos, deleted: true })
+    })
+  })
+})
+
+
+app.get('/:id/update', (req, res) => {
+  const id = req.params.id
+
+  fs.readFile('./data/todos.json', (err, data) => {
+    if (err) throw err
+    
+    const todos = JSON.parse(data)
+    const todo = todos.filter(todo => todo.id == id)[0]
+    
+    const todoIdx = todos.indexOf(todo)
+    const splicedTodo = todos.splice(todoIdx, 1)[0]
+    
+    splicedTodo.done = true
+    
+    todos.push(splicedTodo)
+
+    fs.writeFile('./data/todos.json', JSON.stringify(todos), (err) => {
+      if (err) throw err
+
+      res.render('home', { todos: todos })
+    })
+  })
+    
+})
+
 app.listen(PORT, (err) =>{
     if (err) thow (err)
 

@@ -1,56 +1,137 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+  font-family: 'Open Sans', sans-serif;
 }
 
-.wrapper{
-    max-width: 800px;
-    margin: 50px auto;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.logo{
-    text-align: center;
-    font-size: 4rem;
+body {
+    background-color: #8f4df8
+}
+.wrapper {
+  max-width: 800px;
+  margin: 50px auto;
 }
 
-.form{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+.logo {
+  text-align: center;
+  font-size: 4rem;
+  font-family: serif;
+  color: #fff;
 }
 
-.input{
-    display: inline-block;
-    padding: 10px;
-    font-size: 1.5rem;
-    width: 80%;
-    border: 1px solid #ccc;
+.form {
+  margin-top: 25px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 1px;
+  box-shadow: 0px 0px 0px 6px rgba(255, 255, 255, 0.3)
 }
 
-.btn{
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1.5rem;
-    width: 18%;
-    border: node;  
-    background: blue;
-    color: #fff;
+.input {
+  display: inline-block;
+  padding: 10px;
+  font-size: 1.5rem;
+  width: 80%;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  width: 20%;
+  border: none;
+  background: #4DB7FE;
+  color: #fff;
+  border: none;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  cursor: pointer;
 }
 
-.todos{
-    margin-top: 25px;
-    border: 1px solid #ccc;
-    padding: 10px;
+.todos {
+  margin-top: 25px;
+  border-radius: 1px;
+  box-shadow: 0px 0px 0px 6px rgba(255, 255, 255, 0.3);
+  padding: 10px;
+  background:#fff;
 }
 
-.todo{
-    padding: 10px;
-    font-size: 1.5rem;
-    border-bottom: 1px dotted #ccc;
-
+.todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  font-size: 1.5rem;
+  border-bottom: 1px dotted #ccc;
 }
 
-.todo:hover{
-    background: #eee;
+.todo:last-child {
+  border-bottom: none;
+}
+
+
+.todo:hover {
+  background: #eee;
+}
+
+.error,
+.success {
+  text-align: center;
+  font-size: 1.4rem;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.error {
+  color: red;
+  border-color: red;
+  border-radius: 1px;
+  box-shadow: 0px 0px 0px 6px rgba(255, 255, 255, 0.3);
+  background: #fff;
+  padding-bottom: 10px;
+}
+
+.success {
+  color: green;
+  border-color: green;
+  border-radius: 1px;
+  box-shadow: 0px 0px 0px 6px rgba(255, 255, 255, 0.3);
+  background: #fff;
+  padding-bottom: 10px;
+}
+
+.delete {
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 5px 10px;
+  background: red;
+  color: #fff;
+  border-radius: 1px;
+}
+
+.done, 
+.undone {
+  text-decoration: none;
+  color: #757575;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+.footer{
+    font-family: serif;
+    color: #eee;
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    text-align: right;
 }

@@ -5,7 +5,7 @@ In this application you can add to do tasks, change the status of task and delet
 
 1. Clone this repository
 ```bash
-git clone [link](https://github.com/student00008906/newnwe.git)
+git clone https://github.com/student00008906/newnwe.git
 ```
 
 2. Install dependencies
